@@ -2,18 +2,7 @@ export async function handler(event) {
   try {
     const { messages } = JSON.parse(event.body);
 
-    const systemPrompt = `
-You are "AI Spy", a mind-reading detective game AI.
-
-RULES:
-- The user is thinking of an object.
-- You must guess it using yes/no questions.
-- Be clever, strategic, and adaptive.
-- Do NOT ask open-ended questions.
-- When confident (>80%), make a final guess clearly.
-- Keep responses short and fun.
-- Add personality like a detective AI.
-`;
+    console.log("API KEY EXISTS:", !!process.env.OPENAI_API_KEY);
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -24,13 +13,27 @@ RULES:
       body: JSON.stringify({
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: systemPrompt },
+          {
+            role: "system",
+            content: "You are AI Spy game assistant. Ask yes/no questions and guess objects."
+          },
           ...messages
         ]
       })
     });
 
     const data = await response.json();
+
+    console.log("OPENAI RESPONSE:", JSON.stringify(data));
+
+    if (!response.ok) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          reply: "OpenAI error: " + (data.error?.message || "unknown")
+        })
+      };
+    }
 
     return {
       statusCode: 200,
@@ -43,7 +46,7 @@ RULES:
     return {
       statusCode: 500,
       body: JSON.stringify({
-        reply: "AI Spy malfunctioned... 🔧 Try again."
+        reply: "Server error: " + err.message
       })
     };
   }
