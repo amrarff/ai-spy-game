@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Spy LLM Game</title>
+<link rel="stylesheet" href="style.css" />
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 420px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 15px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 18px;
+}
+
+.chat {
+    height: 360px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.msg {
+    margin: 8px 0;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.ai { background: #2563eb; }
+.user { background: #22c55e; text-align: right; }
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.start { background: #facc15; margin-bottom: 10px; }
+.yes { background: #22c55e; }
+.no { background: #ef4444; color: white; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🕵️ AI Spy: Mind Reader</h1>
+
+    <div id="chat" class="chat"></div>
+
+    <button class="start" onclick="startGame()">Start Game</button>
+
+    <div class="buttons">
+        <button class="yes" onclick="sendAnswer('yes')">YES</button>
+        <button class="no" onclick="sendAnswer('no')">NO</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
