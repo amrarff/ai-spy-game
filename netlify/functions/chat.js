@@ -53,9 +53,11 @@ RULES:
       "Hmm... my detective instincts failed me.";
 
     return {
-      statusCode: 200,
-      body: JSON.stringify({ reply })
-    };
+  statusCode: 200,
+  body: JSON.stringify({
+    reply: "KEY TEST: " + process.env.GEMINI_API_KEY
+  })
+};
 
   } catch (err) {
     return {
