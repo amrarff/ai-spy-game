@@ -1,15 +1,12 @@
 export async function handler(event) {
-  try {
-    const { messages } = JSON.parse(event.body);
-
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({
-          reply: "Missing API key. Check Netlify env variables."
-        })
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      keyExists: !!process.env.GEMINI_API_KEY,
+      keyPreview: process.env.GEMINI_API_KEY?.slice(0, 10)
+    })
+  };
+}
       };
     }
 
